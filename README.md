@@ -38,3 +38,5 @@ GET Method
 POST Method
 ````
 - http://localhost:8081/home/tzone?zipcode=10123
+
+## Note: URL [ home ] may change if configuration does not appear and need to create new configuration from existing war file.
