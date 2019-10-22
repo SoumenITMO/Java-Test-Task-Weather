@@ -6,7 +6,7 @@
 - JDK 11
 
 ### Steps
-> git clone https://github.com/SoumenITMO/Java-Test-Task-Weather.git
+- git clone https://github.com/SoumenITMO/Java-Test-Task-Weather.git
 - Import cloned project as maven project
 - Change configuration from "Run/Debug Configuration ". Where it will be needed to locate tomcat home and locate war file
   to deploy
