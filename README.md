@@ -30,6 +30,9 @@ GET Method
 - Njombe
 - Xilli
 
+### There is a form also available to post zipcode by following URL :
+- http://localhost:8081/home
+
 ### To get Timezone according zip code service example URL given below it may vary according to configuration.
 ````
 POST Method

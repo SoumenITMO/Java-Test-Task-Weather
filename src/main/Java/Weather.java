@@ -20,26 +20,32 @@ public class Weather extends HttpServlet {
         String cityName;
         String cityCode = request.getParameter("citycode");
 
-        jsonObj = new JsonObject();
-        readBuffer = new BufferedReader(new FileReader(this.getClass().getClassLoader()
-                .getResource("data/weather.json").getPath()));
+        if(!cityCode.isEmpty()) {
+            jsonObj = new JsonObject();
+            readBuffer = new BufferedReader(new FileReader(this.getClass().getClassLoader()
+                    .getResource("data/weather.json").getPath()));
 
-        while((line = readBuffer.readLine()) != null) {
-            jsonObject =  new JsonParser().parse(line).getAsJsonObject();
-            cityName = jsonObject.get("city").getAsJsonObject().get("name").toString().replace('"', ' ').trim();
-            if(cityCode.equals(cityName)) {
+            while((line = readBuffer.readLine()) != null) {
+                jsonObject =  new JsonParser().parse(line).getAsJsonObject();
+                cityName = jsonObject.get("city").getAsJsonObject().get("name").toString().replace('"', ' ').trim();
+                if(cityCode.equals(cityName)) {
 
-                jsonObj.addProperty("city_name", cityName);
-                jsonObj.addProperty("temp",  jsonObject.get("main").getAsJsonObject().get("temp").toString());
-                jsonObj.addProperty("min_tmp", jsonObject.get("main").getAsJsonObject().get("temp_min").toString());
-                jsonObj.addProperty("max_tmp", jsonObject.get("main").getAsJsonObject().get("temp_max").toString());
-                jsonObj.addProperty("humidity", jsonObject.get("main").getAsJsonObject().get("humidity").toString());
-                break;
+                    jsonObj.addProperty("city_name", cityName);
+                    jsonObj.addProperty("temp",  jsonObject.get("main").getAsJsonObject().get("temp").toString());
+                    jsonObj.addProperty("min_tmp", jsonObject.get("main").getAsJsonObject().get("temp_min").toString());
+                    jsonObj.addProperty("max_tmp", jsonObject.get("main").getAsJsonObject().get("temp_max").toString());
+                    jsonObj.addProperty("humidity", jsonObject.get("main").getAsJsonObject().get("humidity").toString());
+                    break;
+                }
             }
+
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.println(jsonObj.toString());
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("Citycode is blank.");
         }
 
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.println(jsonObj.toString());
     }
 }
